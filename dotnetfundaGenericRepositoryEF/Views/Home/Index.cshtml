@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Fundamentals of .NET | Posts List";
+}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Post | Posts List</h2>
+        <p>
+            @Html.ActionLink("New Post", "NewPost")
+        </p>
+        <p style="text-align:center;color:red">@ViewBag.Message</p>
+        <table class="table">
+            <tr style="background-color:#333;color:#fff">
+                <th>Title</th>
+                <th>Content</th>
+                <th>Tags</th>
+                <th>Author</th>
+                <th>Created Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.Title</td>
+                    <td>@post.Content.Substring(0, Math.Min(post.Content.Length - 1, 50))</td>
+                    <td>
+                        @foreach (var tag in post.Tags)
+                        {
+                            @tag.Tags <span>,</span>
+                        }
+                    </td>
+                    <td> @post.Author</td>
+                    <td>@post.CreatedDate</td>
+                    <td><a href="@Url.Action("Edit", "Home", new { id = post.PostId })">Edit</a></td>
+                    <td><a href="@Url.Action("Delete", "Home", new { id = post.PostId })">Delete</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>
